@@ -3,9 +3,9 @@
 public class Player1Controller : MonoBehaviour
 {
 	//public int m_PlayerNumber = 1;         
-	public float speed = 12f;                 
+	public float speed = 5f;                 
 	   
-	private Rigidbody rb;
+	private Animator anim;
 
 	private bool facingRight;
 	//player is facing right instead of left.
@@ -15,7 +15,7 @@ public class Player1Controller : MonoBehaviour
 	private void Start()
 	{
 		facingRight = true;
-		rb = GetComponent<Rigidbody> ();
+		anim = GetComponent<Animator> ();
 	}
 		
 
@@ -25,14 +25,36 @@ public class Player1Controller : MonoBehaviour
 		float moveHorizontal = Input.GetAxis ("Horizontal1");
 		float moveVertical = Input.GetAxis ("Vertical1");
 
-		transform.Translate( new Vector3(Time.deltaTime * speed * -moveHorizontal,0,0));
-		transform.Translate( new Vector3(0,0,Time.deltaTime * speed * -moveVertical));
+		transform.Translate (new Vector3 (Time.deltaTime * speed * -moveHorizontal, 0, 0));
+		transform.Translate (new Vector3 (0, 0, Time.deltaTime * speed * -moveVertical));
+		//Sets x and y basic movement
 
-		Turn (moveHorizontal);
+		anim.SetFloat ("WalkSpeedX", Mathf.Abs (moveHorizontal));
+		anim.SetFloat ("WalkSpeedZ", Mathf.Abs (moveVertical));
+		//code for walking animation to flow fluently between x and z planes
+
+		/*
+		bool Run = Input.GetAxis ("Run1");
+
+		if (Input.GetKey (KeyCode.LeftShift)) 
+		{
+			Run = true;
+		} 
+		else 
+		{
+			Run = false;
+		}
+
+		anim.SetBool ("Running", Run);
+		*/
+		//THIS CODE ABOVE IS THE RUNNING CODE, IT'S NOT RIGHT YET
+
+
+		turn (moveHorizontal);
 	}
 
-	private void Turn(float moveHorizontal)
-	//code for turning the player to either right or left.
+	private void turn(float moveHorizontal)
+	//code 	for turning the player to either right or left.
 	{
 		if (moveHorizontal > 0 && !facingRight || moveHorizontal < 0 && facingRight) 
 		{
