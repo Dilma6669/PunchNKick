@@ -33,23 +33,6 @@ public class Player1Controller : MonoBehaviour
 		anim.SetFloat ("WalkSpeedZ", Mathf.Abs (moveVertical));
 		//code for walking animation to flow fluently between x and z planes
 
-		/*
-		bool Run = Input.GetAxis ("Run1");
-
-		if (Input.GetKey (KeyCode.LeftShift)) 
-		{
-			Run = true;
-		} 
-		else 
-		{
-			Run = false;
-		}
-
-		anim.SetBool ("Running", Run);
-		*/
-		//THIS CODE ABOVE IS THE RUNNING CODE, IT'S NOT RIGHT YET
-
-
 		turn (moveHorizontal);
 	}
 
