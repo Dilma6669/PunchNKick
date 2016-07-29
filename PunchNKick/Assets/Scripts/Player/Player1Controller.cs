@@ -7,8 +7,8 @@ public class Player1Controller : MonoBehaviour
 	   
 	private Animator anim;
 
-	private bool facingRight;
 	//player is facing right instead of left.
+	private bool facingRight;
 
 
 
@@ -19,41 +19,45 @@ public class Player1Controller : MonoBehaviour
 	}
 		
 
+
 	private void FixedUpdate()
 	{
-
+		// Basic Movement Player //
 		float moveHorizontal = Input.GetAxis ("Horizontal1");
 		float moveVertical = Input.GetAxis ("Vertical1");
 
-		transform.Translate (new Vector3 (Time.deltaTime * speed * -moveHorizontal, 0, 0));
-		transform.Translate (new Vector3 (0, 0, Time.deltaTime * speed * -moveVertical));
 		//Sets x and y basic movement
+		transform.Translate (new Vector3 (Time.deltaTime * speed * moveHorizontal, 0, 0));
+		transform.Translate (new Vector3 (0, 0, Time.deltaTime * speed * moveVertical));
 
+		//code for walking animation to flow fluently between x and z planes
 		anim.SetFloat ("WalkSpeedX", Mathf.Abs (moveHorizontal));
 		anim.SetFloat ("WalkSpeedZ", Mathf.Abs (moveVertical));
-		//code for walking animation to flow fluently between x and z planes
 
+		// Flip Player Over //
 		turn (moveHorizontal);
+
+		if(
 	}
 
-	private void turn(float moveHorizontal)
+
+
+
+
+
+
+
+
 	//code 	for turning the player to either right or left.
+	private void turn(float moveHorizontal)
 	{
-		if (moveHorizontal > 0 && !facingRight || moveHorizontal < 0 && facingRight) 
+		if (moveHorizontal < 0 && !facingRight || moveHorizontal > 0 && facingRight) 
 		{
 			facingRight = !facingRight;
-
 			Vector3 playerScale = transform.localScale;
-
 			playerScale.x *= -1;
-
 			transform.localScale = playerScale;
-
 		}
 	}
-
-
-
-
 
 }
