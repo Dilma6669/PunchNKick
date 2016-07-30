@@ -15,8 +15,10 @@ public class Player1Controller : MonoBehaviour
 
 	private float verticalVelocity;
 	private float gravity = 14f;
-	[SerializeField]
-	private float jumpForce = 10f;
+	//[SerializeField]
+	private float jumpForce = 7f;
+	private bool jump = true;
+	private float jumptimer;
 	//[SerializeField]
 	//private Transform[] groundPoints;
 	//[SerializeField]
@@ -56,10 +58,12 @@ public class Player1Controller : MonoBehaviour
 			speed = 5f;
 		}
 
-		//Sets Jumping animation
+	/*	//Sets Jumping animation
 		if (Input.GetKey(KeyCode.Space)) 
 		{
 			anim.SetBool ("Jumping", true);
+
+			GetComponent<Rigidbody>().AddForce(transform.up * jumpForce);
 			//jump = true;
 		} 
 		else 
@@ -67,7 +71,7 @@ public class Player1Controller : MonoBehaviour
 			anim.SetBool ("Jumping", false);
 			//jump = false;
 		}
-
+		*/
 
 	}
 
@@ -103,8 +107,33 @@ public class Player1Controller : MonoBehaviour
 
 
 
-		//Sets Gravity settings for if jumping. THIS CODE AND THE JUMPING ANIMATION CODE MIGHT BE ABLE TO GO TOGETHER SOMEHOW?
+		if (Input.GetKeyDown (KeyCode.Space)) {
+			if (jump == true) {
 
+				anim.SetBool ("Jumping", true);
+
+				GetComponent<Rigidbody> ().velocity = new Vector2 (GetComponent<Rigidbody> ().velocity.x, jumpForce);
+				jump = false;
+			}
+		}
+
+
+
+		if (jump == false) {
+
+
+			jumptimer = jumptimer + 1;
+			if (jumptimer >= 50) {
+				jumptimer = 0;
+				anim.SetBool ("Jumping", false);
+				jump = true;
+			}
+		}
+
+
+
+		//Sets Gravity settings for if jumping. THIS CODE AND THE JUMPING ANIMATION CODE MIGHT BE ABLE TO GO TOGETHER SOMEHOW?
+		/*
 		if (player1Control.isGrounded) 
 		{
 			verticalVelocity = -gravity * Time.deltaTime;
@@ -145,8 +174,8 @@ public class Player1Controller : MonoBehaviour
 				}
 			}
 		}
-		return false;
-	}*/
+		return false; */
+	}
 
 	//code 	for turning the player to either right or left.
 	private void turn(float moveHorizontal)
