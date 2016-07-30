@@ -2,7 +2,8 @@
 
 public class Player1Controller : MonoBehaviour
 {   
-	public float speed = 5f;   
+	public float speed = 5f;
+	private float sprintSpeed;
 
 	private Rigidbody rb;
 
@@ -25,6 +26,7 @@ public class Player1Controller : MonoBehaviour
 		run = false;
 		anim = GetComponent<Animator> ();
 		facingRight = true;
+		sprintSpeed = speed * 2;
 	}
 		
 	private void Update()
@@ -33,7 +35,7 @@ public class Player1Controller : MonoBehaviour
 		if (Input.GetKey(KeyCode.LeftShift)) 
 		{
 			run = true;
-			speed *= 2;
+			speed = sprintSpeed;
 		} 
 		else 
 		{
