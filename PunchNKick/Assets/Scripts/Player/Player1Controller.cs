@@ -6,6 +6,7 @@ public class Player1Controller : MonoBehaviour
 	private float sprintSpeed;
 
 	private Rigidbody rb;
+	private SpriteRenderer rend;
 
 	private bool run;
 
@@ -23,6 +24,7 @@ public class Player1Controller : MonoBehaviour
 	private void Start()
 	{
 		rb = GetComponent<Rigidbody>();
+		rend = GetComponent<SpriteRenderer>();
 		run = false;
 		anim = GetComponent<Animator> ();
 		facingRight = true;
@@ -90,13 +92,14 @@ public class Player1Controller : MonoBehaviour
 	//code 	for turning the player to either right or left.
 	private void turn(float moveHorizontal)
 	{
-		if (moveHorizontal < 0 && !facingRight || moveHorizontal > 0 && facingRight) 
-		{
+		if (moveHorizontal < 0 && !facingRight || moveHorizontal > 0 && facingRight) {
+
+			rend.flipX = !rend.flipX;
 			facingRight = !facingRight;
-			Vector3 playerScale = transform.localScale;
-			playerScale.x *= -1;
-			transform.localScale = playerScale;
-		}
+			//Vector3 playerScale = transform.localScale;
+			//playerScale.x *= -1;
+			//transform.localScale = playerScale;
+		} 
 	}
 
 }
